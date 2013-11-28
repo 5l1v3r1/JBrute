@@ -4,6 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.PrintStream;
 
+import javax.xml.crypto.AlgorithmMethod;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -187,4 +189,109 @@ public class JBruteTest {
 		outContent.reset();
 	}
 
+	@Test
+	public void test9(){
+		File f = new File(".pandoras.box");
+		String [] args = {"--test", "--algorithm=9", "--threads=2"};
+
+		JBrute.main(args);
+	
+		String output=outContent.toString();
+		if(!output.contains("Benchmarking")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();
+	}
+	
+	@Test
+	public void test10(){
+		File f = new File(".pandoras.box");
+		String [] args = {"--test", "--algorithm=9", "--threads=2"};
+
+		JBrute.main(args);
+	
+		String output=outContent.toString();
+		if(!output.contains("Benchmarking")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();
+	}
+	
+	@Test
+	public void test11(){
+		File f = new File(".pandoras.box");
+		String [] args = {"--guess", "--lucky", "--hash=4d186321c1a7f0f354b297e8914ab240"};
+
+		JBrute.main(args);
+	
+		String output=outContent.toString();
+		if(!output.contains("MD5")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();
+	}
+	
+	@Test
+	public void test12(){
+		File f = new File(".pandoras.box");
+		String [] args = {"--guess", "--lucky", "--hash=4d186321c1a7f0f354b297e8914ab240"};
+
+		JBrute.main(args);
+	
+		String output=outContent.toString();
+		if(!output.contains("MD5")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();
+	}
+	
+	@Test
+	public void test13(){
+		File f = new File(".pandoras.box");
+		String [] args = {"--help"};
+
+		JBrute.main(args);
+	
+		String output=outContent.toString();
+		if(!output.contains("Available parameters:")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();
+	}
+	
+	@Test
+	public void test14(){
+		File f = new File(".pandoras.box");
+		
+		int i = 0;
+		String[] algorithm = {"--algorithm=1","--algorithm=2","--algorithm=5","--algorithm=6",
+				"--algorithm=8","--algorithm=9","--algorithm=B","--algorithm=C",
+				"--algorithm=D","--algorithm=E","--algorithm=F","--algorithm=G","--algorithm=H",
+				"--algorithm=I","--algorithm=I","--algorithm=K","--algorithm=L"};
+		
+		
+		while(i < algorithm.length){
+			String [] args = {"--encrypt", "--word=hola", algorithm[i]};
+			
+			JBrute.main(args);
+			i++;
+		}
+		
+		if(f.exists()){
+			f.delete();
+		}
+		//JBrute.main(args2);
+
+		/*String output=outContent.toString();
+		if(!output.contains("--> hola")){
+			fail("Failed to decrypt");
+		}
+
+		outContent.reset();*/
+	}
 }
