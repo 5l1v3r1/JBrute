@@ -270,28 +270,33 @@ public class JBruteTest {
 		
 		int i = 0;
 		String[] algorithm = {"--algorithm=1","--algorithm=2","--algorithm=5","--algorithm=6",
-				"--algorithm=8","--algorithm=9","--algorithm=B","--algorithm=C",
+				"--algorithm=9","--algorithm=C",
 				"--algorithm=D","--algorithm=E","--algorithm=F","--algorithm=G","--algorithm=H",
 				"--algorithm=I","--algorithm=I","--algorithm=K","--algorithm=L"};
 		
 		
-		while(i < algorithm.length){
+			while(i < algorithm.length){
 			String [] args = {"--encrypt", "--word=hola", algorithm[i]};
-			
 			JBrute.main(args);
+			
+			String output=outContent.toString();
+			int index = output.lastIndexOf(":");
+			String hash = output.substring(index + 1, output.length()).trim();
+			
+			if(f.exists()){
+				f.delete();
+			}
+			
+			String [] args2 = {"--decrypt", "--method=brute", algorithm[i], "--hash=" + hash};
+			JBrute.main(args2);
+			
+			output=outContent.toString();
+			if(!output.contains("--> hola")){
+				fail("Failed to decrypt");
+			}
+			
+			outContent.reset();
 			i++;
 		}
-		
-		if(f.exists()){
-			f.delete();
-		}
-		//JBrute.main(args2);
-
-		/*String output=outContent.toString();
-		if(!output.contains("--> hola")){
-			fail("Failed to decrypt");
-		}
-
-		outContent.reset();*/
 	}
 }
