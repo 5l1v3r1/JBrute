@@ -274,6 +274,9 @@ public class JBruteTest {
 				"--algorithm=D","--algorithm=E","--algorithm=F","--algorithm=G","--algorithm=H",
 				"--algorithm=I","--algorithm=I","--algorithm=K","--algorithm=L"};
 		
+		if(f.exists()){
+			f.delete();
+		}
 		
 			while(i < algorithm.length){
 			String [] args = {"--encrypt", "--word=hola", algorithm[i]};
@@ -298,5 +301,204 @@ public class JBruteTest {
 			outContent.reset();
 			i++;
 		}
+	}
+	
+	@Test
+
+	public void test15(){
+
+	File f = new File(".pandoras.box");
+
+	String [] args = {"--encrypt", "--word=hola", "--presalt=harsh","--algorithm=1"};
+
+	String [] args2 = {"--decrypt", "--method=brute", "--presalt=harsh","--algorithm=1", 
+
+	"--hash=5755061c841f3d67f04a23dc0e4e9a93"};
+
+	JBrute.main(args);
+
+	if(f.exists()){
+
+	f.delete();
+
+	}
+
+	JBrute.main(args2);
+
+
+
+	String output=outContent.toString();
+
+	if(!output.contains("--> hola")){
+
+	fail("Failed to decrypt");
+
+	}
+
+
+
+	outContent.reset();
+
+	}
+
+
+
+
+	@Test
+
+	public void test19(){
+
+	File f = new File(".pandoras.box");
+
+	String [] args = {"--encrypt", "--word=hola","--threads=2", "--presalt=harsh","--algorithm=6"};
+
+	String [] args2 = {"--decrypt", "--method=brute", "--presalt=harsh","--algorithm=1", 
+
+	"--hash=5755061c841f3d67f04a23dc0e4e9a93"};
+
+	JBrute.main(args2);
+
+//		 if(f.exists()){
+
+//		 f.delete();
+
+//		 }
+
+//		 JBrute.main(args2);
+
+	//
+
+//		 String output=outContent.toString();
+
+//		 if(!output.contains("--> hola")){
+
+//		 fail("Failed to decrypt");
+
+//		 }
+
+
+
+	outContent.reset();
+
+	}
+
+
+	@Test
+
+	public void test16(){
+
+	File f = new File(".pandoras.box");
+
+	String [] args = {"--encrypt", "--word=hola", "--postsalt=harsh","--algorithm=6"};
+
+	String [] args2 = {"--decrypt", "--method=brute", "--postsalt=harsh","--algorithm=6", 
+
+	"--hash=22178733a15b1106b0f411c412ca674523fb300185f42e9eaa50e5c85efe4a5e5f82d9be1009db380de1310e93553345fb308ccebb86aa7cb070c39150c5ee64"};
+
+	JBrute.main(args);
+
+
+	if(f.exists()){
+
+	f.delete();
+
+	}
+
+	JBrute.main(args2);
+
+
+
+	String output=outContent.toString();
+
+	if(!output.contains("--> hola")){
+
+	fail("Failed to decrypt");
+
+	}
+
+
+
+	outContent.reset();
+
+	}
+
+
+	@Test
+
+	public void test17(){
+
+	File f = new File(".pandoras.box");
+
+	String [] args = {"--encrypt", "--word=hola", "--salt_type=hex","--postsalt=15AB","--algorithm=6"};
+
+	String [] args2 = {"--decrypt", "--method=brute", "--salt_type=hex","--postsalt=15AB","--algorithm=6", 
+
+	"--hash=54dd062b7eb252796554209bc5490b3b9039e7ccd5d7182bd4f05ed4906b35577af25091d403c05493dfd4d41a5b5417565483f06a6082e1ac0afb46231f7022"};
+
+	JBrute.main(args);
+
+
+	if(f.exists()){
+
+	f.delete();
+
+	}
+
+	JBrute.main(args2);
+
+
+
+	String output=outContent.toString();
+
+	if(!output.contains("--> hola")){
+
+	fail("Failed to decrypt");
+
+	}
+
+
+
+	outContent.reset();
+
+	}
+
+
+	@Test
+
+	public void test18(){
+
+	File f = new File(".pandoras.box");
+
+	String [] args = {"--encrypt", "--word=hola", "--salt_type=int64","--postsalt=1234","--algorithm=6"};
+
+	String [] args2 = {"--decrypt", "--method=brute", "--salt_type=int64","--postsalt=1234","--algorithm=6", 
+
+	"--hash=3b84d2ab3526c0685ccc894303657556eb0c46edcfcf7d46fbe067594b0a3cb9c3f6c65350fba625151509a8531bb92d21562f9cf533d6d88c007d477421d24d"};
+
+	JBrute.main(args);
+
+
+	if(f.exists()){
+
+	f.delete();
+
+	}
+
+	JBrute.main(args2);
+
+
+
+	String output=outContent.toString();
+
+	if(!output.contains("--> hola")){
+
+	fail("Failed to decrypt");
+
+	}
+
+
+
+	outContent.reset();
+
 	}
 }
